@@ -38,6 +38,10 @@ class ImagePanel(wx.Panel):
 class MyFrame(wx.Frame):
     def __init__(self, *args, **kwds):
         wx.Frame.__init__(self, *args, **kwds)
+
+        self.width, self.height = wx.DisplaySize()
+        print "Targeting images for {}x{}".format(self.width, self.height)
+
         self.client = ImagePanel(self)
 
         self.timer = wx.Timer(self)
