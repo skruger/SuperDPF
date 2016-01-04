@@ -24,7 +24,7 @@ def prep_image(filename, width, height):
                                            wx.DisplaySize())
 
     background = background.resize(wx.DisplaySize(), Image.ANTIALIAS)
-    background = background.filter(ImageFilter.GaussianBlur(radius=20))
+    background = background.filter(ImageFilter.GaussianBlur(radius=50))
 
     new_height = width * h / w
     if new_height > height:
@@ -60,9 +60,7 @@ class ImagePanel(wx.Panel):
                                     *wx.DisplaySize())
             self.update_count += 1
 
-            outfile = '/tmp/SuperDPF-image{}{}'.format(
-                self.update_count,
-                os.path.splitext(filename)[1])
+            outfile = '/tmp/SuperDPF-image.jpg'
             pil_image.save(outfile, optimize=False,
                            progressive=True, quality=100,
                            subsampling=0)
