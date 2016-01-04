@@ -2,6 +2,7 @@
 
 import wx
 import time
+import sys
 
 import gettext
 
@@ -43,6 +44,7 @@ class MyFrame(wx.Frame):
         print "Targeting images for {}x{}".format(self.width, self.height)
 
         self.client = ImagePanel(self)
+        self.client.SetFocus()
 
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update, self.timer)
@@ -50,9 +52,17 @@ class MyFrame(wx.Frame):
 
         self.ShowFullScreen(True, 0)
 
+        self.Bind(wx.EVT_CHAR_HOOK, self.OnKeyUP)
+
     def update(self, event):
         print "Updated: {}".format(time.ctime())
         self.client.update_image()
+
+    def OnKeyUP(self, event):
+        code = event.GetKeyCode()
+        print "keypress: {}".format(code)
+        if code == wx.WXK_ESCAPE:
+            sys.exit(0)
 
 
 if __name__ == "__main__":
